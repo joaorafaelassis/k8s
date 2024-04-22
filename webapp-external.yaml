@@ -30,6 +30,10 @@ spec:
       containers:
         - name: httpd-container
           image: httpd:latest
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "echo $(hostname) >> /usr/local/apache2/htdocs/index.html"]
           ports:
             - containerPort: 80
                 
