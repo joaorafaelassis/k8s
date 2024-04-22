@@ -30,8 +30,6 @@ spec:
       containers:
         - name: httpd-container
           image: httpd:latest
-          command: ["echo"]
-          args: ["$(hostname)", ">>", "/usr/local/apache2/htdocs/index.html"]
           ports:
             - containerPort: 80
                 
