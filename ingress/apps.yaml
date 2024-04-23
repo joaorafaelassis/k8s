@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-finance
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    env: app-finance
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-hr
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    env: app-hr
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-finance
+  labels:
+    env: app-finance
+spec:
+  containers:
+  - image: httpd
+    name: app-finance-ctr
+    image: httpd:latest
+    lifecycle:
+      postStart:
+        exec:
+          command: ["/bin/sh", "-c", "echo app-finance $(hostname) >> /usr/local/apache2/htdocs/index.html"]
+    ports:
+    - containerPort: 8080
+    imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-hr
+  labels:
+    env: app-hr
+spec:
+  containers:
+  - image: nigelpoulton/k8sbook:hydra-ingress
+    name: app-hr-ctr
+    lifecycle:
+      postStart:
+        exec:
+          command: ["/bin/sh", "-c", "echo app-hr $(hostname) >> /usr/local/apache2/htdocs/index.html"]
+    ports:
+    - containerPort: 8080
+    imagePullPolicy: Always

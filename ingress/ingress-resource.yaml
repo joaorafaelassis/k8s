@@ -1,0 +1,46 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lab-local-all
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: app-finance.lab.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-finance
+            port:
+              number: 8080
+  - host: app-hr.lab.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-hr
+            port:
+              number: 8080
+  - host: lab.local
+    http:
+      paths:
+      - path: /app-finance
+        pathType: Prefix
+        backend:
+          service:
+            name: app-finance
+            port:
+              number: 8080
+      - path: /app-hr
+        pathType: Prefix
+        backend:
+          service:
+            name: app-hr
+            port:
+              number: 8080
