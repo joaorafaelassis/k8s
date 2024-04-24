@@ -5,8 +5,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 8080
-    targetPort: 8080
+  - port: 80
+    targetPort: 80
   selector:
     env: app-finance
 ---
@@ -17,8 +17,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 8080
-    targetPort: 8080
+  - port: 80
+    targetPort: 80
   selector:
     env: app-hr
 ---
@@ -38,7 +38,7 @@ spec:
         exec:
           command: ["/bin/sh", "-c", "echo app-finance $(hostname) >> /usr/local/apache2/htdocs/index.html"]
     ports:
-    - containerPort: 8080
+    - containerPort: 80
     imagePullPolicy: Always
 ---
 apiVersion: v1
@@ -56,5 +56,5 @@ spec:
         exec:
           command: ["/bin/sh", "-c", "echo app-hr $(hostname) >> /usr/local/apache2/htdocs/index.html"]
     ports:
-    - containerPort: 8080
+    - containerPort: 80
     imagePullPolicy: Always
