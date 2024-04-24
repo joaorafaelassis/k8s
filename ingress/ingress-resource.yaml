@@ -16,7 +16,7 @@ spec:
           service:
             name: app-finance
             port:
-              number: 8080
+              number: 80
   - host: app-hr.lab.local
     http:
       paths:
@@ -26,7 +26,7 @@ spec:
           service:
             name: app-hr
             port:
-              number: 8080
+              number: 80
   - host: lab.local
     http:
       paths:
@@ -36,11 +36,11 @@ spec:
           service:
             name: app-finance
             port:
-              number: 8080
+              number: 80
       - path: /app-hr
         pathType: Prefix
         backend:
           service:
             name: app-hr
             port:
-              number: 8080
+              number: 80
